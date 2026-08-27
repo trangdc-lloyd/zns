@@ -1,0 +1,8 @@
+services:
+  zns-pull:
+    build: .
+    container_name: zns-pull
+    restart: unless-stopped
+    volumes:
+      - ./zns_pull_config.json:/app/zns_pull_config.json:ro
+      - ./zns_pull_state.json:/app/zns_pull_state.json
