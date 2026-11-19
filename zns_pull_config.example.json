@@ -1,18 +1,41 @@
 {
-  "spreadsheet_id": "YOUR_SPREADSHEET_ID",
-  "sheet_name": "0.4. Data",
-  "status_col": 25,
-  "client_req_id_col": 26,
   "data_start_row": 2,
   "request_timeout_sec": 30,
   "poll_interval_sec": 60,
   "zns_endpoint": "https://api-04.worldsms.vn/apidebit/sendZNS",
   "zns_auth_key": "Basic YOUR_AUTH_KEY",
   "zns_from": "YOUR_ZNS_FROM",
-  "zns_template_id": "YOUR_TEMPLATE_ID",
+  "zns_template_id": "YOUR_DEFAULT_TEMPLATE_ID",
   "max_sanphamua_length": 200,
   "lookback_rows": 100,
   "full_scan_interval_cycles": 60,
+  "sources": [
+    {
+      "id": "main",
+      "spreadsheet_id": "YOUR_MAIN_SPREADSHEET_ID",
+      "sheet_name": "0.4. Data",
+      "status_col": 25,
+      "client_req_id_col": 26,
+      "name_col": 2,
+      "phone_col": 4,
+      "address_cols": [11, 9, 8, 7],
+      "product_col": 12,
+      "allowed_products": []
+    },
+    {
+      "id": "combo_b1_b2",
+      "spreadsheet_id": "YOUR_SECOND_SPREADSHEET_ID",
+      "sheet_name": "0.4. Data",
+      "zns_template_id": "YOUR_SECOND_TEMPLATE_ID",
+      "status_col": 24,
+      "client_req_id_col": 25,
+      "name_col": 2,
+      "phone_col": 4,
+      "address_cols": [10, 8, 7],
+      "product_col": 11,
+      "allowed_products": ["VSTEP B1 + B2"]
+    }
+  ],
   "service_account_json": {
     "type": "service_account",
     "project_id": "YOUR_GOOGLE_PROJECT_ID",

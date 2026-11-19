@@ -23,7 +23,7 @@ cd /opt/zns_pull_repo
 
 cp zns_pull_config.example.json zns_pull_config.json
 nano zns_pull_config.json
-touch zns_pull_state.json
+echo '{}' > zns_pull_state.json
 
 docker compose up -d --build
 docker compose logs -f
@@ -51,10 +51,12 @@ docker compose logs -f
 cd /opt/zns_pull_repo
 git pull
 if [ ! -f zns_pull_config.json ]; then cp zns_pull_config.example.json zns_pull_config.json; fi
-if [ ! -f zns_pull_state.json ]; then touch zns_pull_state.json; fi
+if [ ! -f zns_pull_state.json ]; then echo '{}' > zns_pull_state.json; fi
 docker compose up -d --build
 docker compose logs -f
 ```
+
+> Lưu ý: `zns_pull_config.json` không đồng bộ qua Git. Nếu bản cập nhật có thêm sheet hoặc trường cấu hình mới (như `sources`, `zns_template_id` riêng...), cần chỉnh sửa bổ sung vào `zns_pull_config.json` trên server trước khi chạy `docker compose up -d --build`.
 
 ## Điều khiển container
 
