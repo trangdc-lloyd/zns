@@ -47,7 +47,7 @@ def normalize_source_config(raw_source, base_config, index=0):
     if missing_keys:
         raise ValueError(f"Missing config keys in source #{index + 1}: {', '.join(missing_keys)}")
 
-    source.setdefault("id", f"{source['spreadsheet_id']}:{source['sheet_name']}")
+    source.setdefault("id", f"source_{index + 1}")
     source.setdefault("status_col", 25)
     source.setdefault("client_req_id_col", 26)
     source.setdefault("name_col", DEFAULT_NAME_COL)
@@ -95,17 +95,16 @@ def load_config(logger=None):
     config["sources"] = sources
     for source in sources:
         logger.info(
-            "Loaded config [%s] for sheet '%s' in spreadsheet '%s'",
+            "Loaded config [%s] for sheet '%s'",
             source["id"],
             source["sheet_name"],
-            source["spreadsheet_id"],
         )
     return config
 
 
 def open_sheet(config, logger=None, client=None):
     logger = logger or build_logger()
-    logger.info("Opening sheet '%s' (%s)", config["sheet_name"], config["spreadsheet_id"])
+    logger.info("[%s] Opening sheet '%s'", config.get("id", "default"), config["sheet_name"])
     gspread_client = client or gspread.service_account_from_dict(config["service_account_json"])
     spreadsheet = gspread_client.open_by_key(config["spreadsheet_id"])
     return spreadsheet.worksheet(config["sheet_name"])
